@@ -1,4 +1,2 @@
-
 "id","title","text","password","time","hashedPassword","salt"
 "1","title1","Sample Text","123","May 10th 2019, 9:17:00 pm","BHPn8HIgD6kwya2E8CqFj14f8eLMc7VTHoVpS4PVjS36QaJqJkW4i9F20HGHOmTCYoOuNKWm28DrdnopahgIIA==","yxXm100SI8e9l7b0JFyCoT2phEVT1HJl+E+grfEaGiM="
-"1","title1","Sample Text","123","May 10th 2019, 9:17:33 pm","3vGuOipgXxjkwtBvZPHsoDHVFKNxXeCrUlv/LnyjAMJIvo+Lf3bqME96NcojesotNji3JB4L8T17JbruoI8Ysw==","GCj4D2WaiW20w7c0TmLoh3IBVhg55surNdF03rTr1Qk="

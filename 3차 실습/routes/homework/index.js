@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
+const board = require("./board");
 
-// router.use('/info', require('./info'));
+router.use("/board", board);
 
 module.exports = router;

@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
+    "crypto": "^1.0.1",
     "crypto-promise": "^2.1.0",
     "csvtojson": "^2.0.8",
     "debug": "~2.6.9",
@@ -14,6 +15,7 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "json2csv": "^4.5.1",
+    "moment": "^2.24.0",
     "morgan": "~1.9.0"
   }
 }

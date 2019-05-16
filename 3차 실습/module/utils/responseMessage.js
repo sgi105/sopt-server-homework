@@ -5,6 +5,7 @@ module.exports = {
   CREATED_USER: "회원 가입 성공",
   CREATED_POST: "게시글 생성 성공",
   DELETE_USER: "회원 탈퇴 성공",
+  DELETE_POST: "게시글 삭제 성공",
 
   ALREADY_USER: "이미 회원입니다.",
   NO_USER: "존재하지 않는 회원입니다.",

@@ -10,9 +10,6 @@ router.post("/", async (req, res) => {
   const { id, name, password } = user;
   const salt = await bcrypt.genSalt(10);
   const hashed = await bcrypt.hash(password, salt);
-  const userData = [[id, name, hashed, salt]];
-  console.log(userData);
-  console.log(user);
 
   pool.getConnection((err, connection) => {
     if (err) {

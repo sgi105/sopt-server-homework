@@ -16,7 +16,8 @@ const {
   ID_OR_PW_NULL_VALUE,
   NO_RESULT_BOARD,
   GET_POST,
-  CREATED_POST
+  CREATED_POST,
+  DELETE_POST
 } = require("../../module/responseMessage");
 const { successTrue, successFalse } = require("../../module/utils");
 const {
@@ -144,7 +145,9 @@ router.delete("/", async (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
-      res.status(500).send(err.message);
+      res
+        .status(200)
+        .send(successFalse(INTERNAL_SERVER_ERROR, CONNECTION_FAIL));
       return console.log(err);
     }
 
@@ -154,7 +157,7 @@ router.delete("/", async (req, res) => {
       [idx],
       async (err, result) => {
         if (err) {
-          res.status(400).send(err.message);
+          res.status(200).send(successFalse(BAD_REQUEST, QUERY_FAIL));
           connection.release();
           return console.log(err);
         }
@@ -162,10 +165,10 @@ router.delete("/", async (req, res) => {
         // if there is no board, send error message
         if (!result.affectedRows) {
           connection.release();
-          return res.status(400).send(`No board with idx of ${idx} existing.`);
+          return res.status(200).send(successFalse(NOT_FOUND, NO_RESULT_BOARD));
         }
 
-        res.status(200).send(`Board with idx of ${idx} deleted.`);
+        res.status(200).send(OK, DELETE_POST);
 
         connection.release();
       }

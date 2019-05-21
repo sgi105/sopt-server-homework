@@ -4,6 +4,22 @@ const config = require("../../config/dbConfig");
 const mysql = require("mysql");
 const pool = mysql.createPool(config);
 const bcrypt = require("bcrypt");
+const {
+  CONNECTION_FAIL,
+  QUERY_FAIL,
+  CREATED_USER,
+  ALREADY_USER,
+  NULL_VALUE
+} = require("../../module/responseMessage");
+const { successTrue, successFalse } = require("../../module/utils");
+const {
+  OK,
+  BAD_REQUEST,
+  CREATED,
+  NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
+  DB_ERROR
+} = require("../../module/statusCode");
 
 router.post("/", async (req, res) => {
   const user = req.body;
@@ -14,7 +30,9 @@ router.post("/", async (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) {
       connection.release();
-      res.status(500).send(err.message);
+      res
+        .status(200)
+        .send(successFalse(INTERNAL_SERVER_ERROR, CONNECTION_FAIL));
       return console.log(err);
     }
     connection.query(
@@ -22,12 +40,23 @@ router.post("/", async (req, res) => {
       [id, name, hashed, salt],
       (err, result) => {
         if (err) {
-          res.status(400).send(err.message);
+          if (err.code === "ER_DUP_ENTRY") {
+            res.status(200).send(successFalse(BAD_REQUEST, ALREADY_USER));
+          } else {
+            res.status(200).send(successFalse(BAD_REQUEST, NULL_VALUE));
+          }
           connection.release();
-          return console.log(err);
+          return console.log(err.code);
         }
+        // get userIdx from DB
+        console.log(result);
+
         connection.release();
-        res.status(200).send("Sign up Success");
+        res
+          .status(200)
+          .send(
+            successTrue(CREATED, CREATED_USER, { userIdx: result.insertId })
+          );
       }
     );
   });

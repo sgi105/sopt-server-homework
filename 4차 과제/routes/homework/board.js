@@ -168,7 +168,7 @@ router.delete("/", async (req, res) => {
           return res.status(200).send(successFalse(NOT_FOUND, NO_RESULT_BOARD));
         }
 
-        res.status(200).send(OK, DELETE_POST);
+        res.status(200).send(successTrue(OK, DELETE_POST));
 
         connection.release();
       }
